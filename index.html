@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Club El Ombú</title>
+    <meta
+      name="description"
+      content="Club social y deportivo El Ombú. Actividades, eventos, cuotas, contacto e inscripción."
+    />
+    <style>
+      :root {
+        --verde-oscuro: #1d5c2d;
+        --verde-medio: #2e7d32;
+        --verde-claro: #eaf7eb;
+        --verde-suave: #d9f1dd;
+        --gris-fondo: #f4f4f4;
+        --gris-texto: #2d2d2d;
+        --blanco: #ffffff;
+        --gris: #d9d9d9;
+        --negro: #111111;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--gris-fondo);
+        color: var(--gris-texto);
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1100px, 90%);
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-medio));
+        color: var(--blanco);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+
+      .menu {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .menu a {
+        font-weight: 600;
+        color: var(--blanco);
+        opacity: 0.95;
+      }
+
+      .menu a:hover {
+        opacity: 1;
+      }
+
+      .hero {
+        background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+          url('https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        min-height: 520px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-content {
+        max-width: 700px;
+        color: var(--blanco);
+        padding: 50px 0;
+      }
+
+      .badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        margin: 0 0 18px;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 26px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--verde-medio);
+        color: var(--blanco);
+        border: none;
+        border-radius: 10px;
+        padding: 14px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn:hover {
+        background: var(--verde-oscuro);
+        transform: translateY(-1px);
+      }
+
+      .btn.secondary {
+        background: transparent;
+        border: 2px solid var(--blanco);
+      }
+
+      .btn.secondary:hover {
+        background: rgba(255,255,255,0.1);
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: clamp(2rem, 3vw, 2.6rem);
+        margin-bottom: 18px;
+        color: var(--verde-oscuro);
+      }
+
+      .intro {
+        max-width: 800px;
+        text-align: center;
+        margin: 0 auto 34px;
+        font-size: 1.05rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: var(--blanco);
+        border-top: 5px solid var(--verde-medio);
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        padding: 26px 22px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        color: var(--verde-oscuro);
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--verde-claro);
+        color: var(--verde-oscuro);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.72rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      .eventos-list,
+      .lista-simple {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .eventos-list li,
+      .lista-simple li {
+        background: var(--blanco);
+        border-left: 5px solid var(--verde-medio);
+        border-radius: 10px;
+        margin-bottom: 14px;
+        padding: 18px 16px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      }
+
+      .eventos-list strong,
+      .lista-simple strong {
+        display: block;
+        color: var(--verde-oscuro);
+        margin-bottom: 4px;
+      }
+
+      .tarifas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .precio {
+        background: var(--blanco);
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        padding: 24px 18px;
+        text-align: center;
+      }
+
+      .precio h3 {
+        color: var(--verde-oscuro);
+        margin-top: 0;
+      }
+
+      .monto {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--verde-oscuro);
+        margin: 12px 0;
+      }
+
+      .info-box {
+        background: var(--verde-suave);
+        border: 1px solid #bfe0c0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 24px;
+        font-weight: 600;
+      }
+
+      .contacto-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .contacto-item {
+        background: var(--blanco);
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        padding: 24px 20px;
+      }
+
+      .contacto-item h3 {
+        margin-top: 0;
+        color: var(--verde-oscuro);
+      }
+
+      .form-wrap {
+        max-width: 740px;
+        margin: 0 auto;
+        background: var(--blanco);
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        padding: 28px;
+      }
+
+      .campo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+      }
+
+      label {
+        margin-bottom: 8px;
+        color: var(--verde-oscuro);
+        font-weight: bold;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--gris);
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 1rem;
+        font-family: inherit;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .submit-box {
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+      }
+
+      .form-status {
+        display: none;
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: var(--verde-claro);
+        color: var(--verde-oscuro);
+        border: 1px solid #b9dcbf;
+        font-weight: 600;
+      }
+
+      footer {
+        background: #1d1d1d;
+        color: var(--blanco);
+        text-align: center;
+        padding: 22px 16px;
+      }
+
+      @media (max-width: 700px) {
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .menu {
+          gap: 10px 16px;
+        }
+
+        .hero {
+          min-height: 440px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="logo">🌳 Club El Ombú</div>
+        <nav class="menu" aria-label="Menú principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#actividades">Actividades</a>
+          <a href="#eventos">Eventos</a>
+          <a href="#cuotas">Cuotas</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="inicio">
+      <div class="container hero-content">
+        <div class="badge">Club social y deportivo</div>
+        <h1>Un lugar para compartir, moverse y crecer.</h1>
+        <p>
+          En El Ombú fomentamos la comunidad, el deporte, la recreación y la participación vecinal.
+          Sumate a nuestras actividades y viví un club cercano, activo y lleno de vida.
+        </p>
+        <div class="hero-actions">
+          <a href="#actividades" class="btn">Ver actividades</a>
+          <a href="#contacto" class="btn secondary">Contactar</a>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="actividades">
+        <div class="container">
+          <h2>Actividades de la semana</h2>
+          <p class="intro">
+            Pensadas para todas las edades, con espacios de actividad física, arte, bienestar y encuentro.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <div class="tag">Fútbol</div>
+              <h3>Fútbol infantil</h3>
+              <p>Lunes y miércoles<br />17:00 a 18:30</p>
+            </article>
+
+            <article class="card">
+              <div class="tag">Fitness</div>
+              <h3>Zumba</h3>
+              <p>Martes y jueves<br />19:00 a 20:00</p>
+            </article>
+
+            <article class="card">
+              <div class="tag">Música</div>
+              <h3>Taller de guitarra</h3>
+              <p>Viernes<br />18:00 a 19:30</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="eventos">
+        <div class="container">
+          <h2>Eventos del mes</h2>
+          <ul class="eventos-list">
+            <li>
+              <strong>Peña del Ombú</strong>
+              Sábado 12 | 21:00 hs | Salón principal
+            </li>
+            <li>
+              <strong>Feria de emprendedores</strong>
+              Domingo 20 | 10:00 a 17:00 hs | Patio del club
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="cuotas">
+        <div class="container">
+          <h2>Cuotas e inscripción</h2>
+          <div class="tarifas">
+            <div class="precio">
+              <h3>Mayores</h3>
+              <div class="monto">$3.500</div>
+              <p>por mes</p>
+            </div>
+
+            <div class="precio">
+              <h3>Menores</h3>
+              <div class="monto">$2.500</div>
+              <p>por mes</p>
+            </div>
+
+            <div class="precio">
+              <h3>Formas de pago</h3>
+              <div class="monto">Efectivo</div>
+              <p>o transferencia</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            Para inscripciones, bajas o reservas, debés hablar con la secretaría.
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto">
+        <div class="container">
+          <h2>Horarios y contacto</h2>
+          <div class="contacto-grid">
+            <div class="contacto-item">
+              <h3>Secretaría</h3>
+              <p>Lunes a viernes<br />16:00 a 20:00</p>
+            </div>
+
+            <div class="contacto-item">
+              <h3>Teléfono</h3>
+              <p>3855-555555</p>
+            </div>
+
+            <div class="contacto-item">
+              <h3>Mail</h3>
+              <p>secretaria@elombu.org</p>
+            </div>
+
+            <div class="contacto-item">
+              <h3>Dirección</h3>
+              <p>Calle Ombú 123<br />Barrio Norte</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Consultá por tu inscripción</h2>
+          <div class="form-wrap">
+            <form id="consultaForm">
+              <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" placeholder="Tu nombre" required />
+              </div>
+
+              <div class="campo">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="tuemail@email.com" required />
+              </div>
+
+              <div class="campo">
+                <label for="tema">Tema de consulta</label>
+                <select id="tema" required>
+                  <option value="">Seleccioná una opción</option>
+                  <option>Inscripción</option>
+                  <option>Cuotas</option>
+                  <option>Actividades</option>
+                  <option>Eventos</option>
+                  <option>Contacto</option>
+                </select>
+              </div>
+
+              <div class="campo">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" placeholder="Escribí tu consulta..." required></textarea>
+              </div>
+
+              <div class="submit-box">
+                <button type="submit" class="btn">Enviar consulta</button>
+              </div>
+
+              <div id="formStatus" class="form-status" aria-live="polite">
+                ¡Gracias! Tu consulta fue enviada. La secretaría se pondrá en contacto pronto.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Club El Ombú • Comunidad, deporte y barrio
+    </footer>
+
+    <script>
+      document.getElementById('consultaForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const status = document.getElementById('formStatus');
+        status.style.display = 'block';
+        this.reset();
+      });
+    </script>
+  </body>
+</html>
